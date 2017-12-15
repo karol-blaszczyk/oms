@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: MyString
+  form: MyString
+  to: MyString
+  created_at: 2017-12-15
+  order: one
+
+two:
+  event: MyString
+  form: MyString
+  to: MyString
+  created_at: 2017-12-15
+  order: two
