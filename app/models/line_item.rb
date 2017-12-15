@@ -6,9 +6,5 @@ class LineItem < ApplicationRecord
   validates :quantity, numericality: { greater_than: 0 }
   validate :net_price_of_product
 
-  def net_price_of_product
-    if self.net_price != product&.net_price
-      errors.add(:net_price, "net_price must equal product net_price")
-    end
- end
+  before_create { self.net_price = self.product.net_price }
 end
