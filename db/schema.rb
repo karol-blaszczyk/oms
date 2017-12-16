@@ -31,11 +31,12 @@ ActiveRecord::Schema.define(version: 20171215214424) do
     t.string "name"
     t.decimal "net_price"
     t.index ["name", "net_price"], name: "index_products_on_name_and_net_price", unique: true
+    t.index ["name"], name: "index_products_on_name", unique: true
   end
 
   create_table "status_transactions", force: :cascade do |t|
     t.string "event"
-    t.string "form"
+    t.string "from"
     t.string "to"
     t.datetime "created_at"
     t.integer "order_id"
