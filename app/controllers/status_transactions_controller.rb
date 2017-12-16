@@ -22,7 +22,7 @@ class StatusTransactionsController < ApplicationController
 
     # Get order
     def order
-      @order ||= order.find(params[:id])
+      @order ||= order.find(line_item_params[:order_id])
     end
 
     # Only allow a trusted parameter "white list" through.
