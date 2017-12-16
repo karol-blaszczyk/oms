@@ -1,5 +1,5 @@
 class LineItemsController < ApplicationController
-  before_action :set_line_item, only: [:show, :update, :destroy]
+  before_action :set_line_item, only: %i[show update destroy]
 
   # GET /line_items
   def index
@@ -40,18 +40,18 @@ class LineItemsController < ApplicationController
 
   private
 
-    # Get order
-    def order
-      @order ||= Order.find(line_item_params[:order_id])
-    end
+  # Get order
+  def order
+    @order ||= Order.find(params[:order_id])
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_line_item
-      @line_item = order.line_items.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_line_item
+    @line_item = order.line_items.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def line_item_params
-      params.require(:line_item).permit(:quantity, :net_price, :product_id, :order_id)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def line_item_params
+    params.require(:line_item).permit(:quantity, :net_price, :product_id)
+  end
 end
