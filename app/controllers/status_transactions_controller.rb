@@ -1,10 +1,10 @@
 class StatusTransactionsController < ApplicationController
-  # GET /status_transactions/1
+  # GET /orders/:order_id/status_transactions
   def show
     render json: order.aasm(:status).events.map(&:name)
   end
 
-  # POST /status_transactions
+  # POST /orders/:order_id/status_transactions
   def create
     event = status_transaction_params[:event]
     if order.aasm(:status).may_fire_event?(event.to_sym)

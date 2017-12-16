@@ -1,19 +1,19 @@
 class LineItemsController < ApplicationController
   before_action :set_line_item, only: %i[show update destroy]
 
-  # GET /line_items
+  # GET /orders/:order_id/line_items
   def index
     @line_items = order.line_items
 
     render json: @line_items
   end
 
-  # GET /line_items/1
+  # GET /orders/:order_id/line_items/:id
   def show
     render json: @line_item
   end
 
-  # POST /line_items
+  # POST /orders/:order_id/line_items
   def create
     @line_item = order.line_items.new(line_item_params)
 
@@ -24,7 +24,7 @@ class LineItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /line_items/1
+  # PATCH/PUT /orders/:order_id/line_items/:id
   def update
     if @line_item.update(line_item_params)
       render json: @line_item
@@ -33,7 +33,7 @@ class LineItemsController < ApplicationController
     end
   end
 
-  # DELETE /line_items/1
+  # DELETE /orders/:order_id/line_items/:id
   def destroy
     @line_item.destroy
   end

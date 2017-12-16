@@ -11,7 +11,7 @@ class LineItem < ApplicationRecord
 
   # An line_item can only be edited while in the DRAFT status
   def order_status
-    if order && !order.draft?
+    unless order.draft?
       errors.add(:order_status, 'An line_item can only be edited while in the DRAFT status')
     end
   end
