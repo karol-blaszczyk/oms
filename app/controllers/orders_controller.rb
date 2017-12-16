@@ -33,11 +33,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1
-  def destroy
-    @order.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
