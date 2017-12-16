@@ -3,7 +3,7 @@ class LineItemsController < ApplicationController
 
   # GET /line_items
   def index
-    @line_items = LineItem.all
+    @line_items = order.line_items
 
     render json: @line_items
   end
@@ -15,7 +15,7 @@ class LineItemsController < ApplicationController
 
   # POST /line_items
   def create
-    @line_item = LineItem.new(line_item_params)
+    @line_item = order.line_items.new(line_item_params)
 
     if @line_item.save
       render json: @line_item, status: :created, location: @line_item
@@ -39,9 +39,15 @@ class LineItemsController < ApplicationController
   end
 
   private
+
+    # Get order
+    def order
+      @order ||= Order.find(line_item_params[:order_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
-      @line_item = LineItem.find(params[:id])
+      @line_item = order.line_items.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
