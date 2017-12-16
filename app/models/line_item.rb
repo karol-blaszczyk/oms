@@ -2,9 +2,10 @@ class LineItem < ApplicationRecord
   belongs_to :product
   belongs_to :order
 
-  before_create { self.order_date = Date.today unless order_date.present? }
+  before_create { self.net_price = self.product.net_price }
 
   validates_presence_of :product_id
+  validates_presence_of :order_id
   validates :quantity, numericality: { greater_than: 0 }
   validate :order_status, on: :update
 

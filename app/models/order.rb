@@ -17,7 +17,7 @@ class Order < ApplicationRecord
 
    # An line_item can only be edited while in the DRAFT status
    def order_status
-     if order && !order.draft?
+     if self.draft?
        errors.add(:order_status, "An order can only be edited while in the DRAFT status")
      end
    end
@@ -44,9 +44,9 @@ class Order < ApplicationRecord
   # Create stauts transaciton for order
   def log_status_change
     status_transactions.create!(
-      from: aasm.from_state,
-      to: aasm.to_state,
-      event: aasm.current_event
+      from: aasm(:status).from_state,
+      to: aasm(:status).to_state,
+      event: aasm(:status).current_event
     )
   end
 
