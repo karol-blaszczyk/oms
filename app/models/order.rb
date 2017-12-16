@@ -10,34 +10,34 @@ class Order < ApplicationRecord
   validate :order_status, on: :update
 
   def order_date_cannot_be_in_the_past
-   if order_date && order_date < Date.today
-     errors.add(:order_date, "can't be in the past")
-   end
+    if order_date && order_date < Date.today
+      errors.add(:order_date, "can't be in the past")
+    end
   end
 
-   # An line_item can only be edited while in the DRAFT status
-   def order_status
-     if self.draft?
-       errors.add(:order_status, "An order can only be edited while in the DRAFT status")
-     end
-   end
+  # An line_item can only be edited while in the DRAFT status
+  def order_status
+    if draft?
+      errors.add(:order_status, 'An order can only be edited while in the DRAFT status')
+    end
+  end
 
-   aasm(:status) do
-    state :draft, :initial => true
+  aasm(:status) do
+    state :draft, initial: true
     state :placed, :paid, :canceled
 
     after_all_transitions :log_status_change
 
     event :place_order do
-      transitions :from => :draft, :to => :placed
+      transitions from: :draft, to: :placed
     end
 
     event :cancel do
-      transitions :from => [:draft, :placed], :to => :canceled, :guard => :reason_provided?
+      transitions from: %i[draft placed], to: :canceled, guard: :reason_provided?
     end
 
     event :pay_order do
-      transitions :from => :palced, :to => :paid
+      transitions from: :palced, to: :paid
     end
   end
 

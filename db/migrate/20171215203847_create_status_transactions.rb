@@ -7,7 +7,7 @@ class CreateStatusTransactions < ActiveRecord::Migration[5.1]
       t.date :created_at
       t.references :order, foreign_key: true
 
-      t.datetime "created_at"
+      t.datetime 'created_at'
     end
   end
 end

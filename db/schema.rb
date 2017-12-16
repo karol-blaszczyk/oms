@@ -10,37 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215214424) do
-
-  create_table "line_items", force: :cascade do |t|
-    t.integer "quantity"
-    t.decimal "net_price"
-    t.integer "product_id", null: false
-    t.integer "order_id"
-    t.index ["order_id"], name: "index_line_items_on_order_id"
-    t.index ["product_id"], name: "index_line_items_on_product_id"
+ActiveRecord::Schema.define(version: 20_171_215_214_424) do
+  create_table 'line_items', force: :cascade do |t|
+    t.integer 'quantity'
+    t.decimal 'net_price'
+    t.integer 'product_id', null: false
+    t.integer 'order_id'
+    t.index ['order_id'], name: 'index_line_items_on_order_id'
+    t.index ['product_id'], name: 'index_line_items_on_product_id'
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.date "order_date"
-    t.float "vat", default: 0.2
-    t.string "status"
+  create_table 'orders', force: :cascade do |t|
+    t.date 'order_date'
+    t.float 'vat', default: 0.2
+    t.string 'status'
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.decimal "net_price"
-    t.index ["name", "net_price"], name: "index_products_on_name_and_net_price", unique: true
-    t.index ["name"], name: "index_products_on_name", unique: true
+  create_table 'products', force: :cascade do |t|
+    t.string 'name'
+    t.decimal 'net_price'
+    t.index %w[name net_price], name: 'index_products_on_name_and_net_price', unique: true
+    t.index ['name'], name: 'index_products_on_name', unique: true
   end
 
-  create_table "status_transactions", force: :cascade do |t|
-    t.string "event"
-    t.string "from"
-    t.string "to"
-    t.datetime "created_at"
-    t.integer "order_id"
-    t.index ["order_id"], name: "index_status_transactions_on_order_id"
+  create_table 'status_transactions', force: :cascade do |t|
+    t.string 'event'
+    t.string 'from'
+    t.string 'to'
+    t.datetime 'created_at'
+    t.integer 'order_id'
+    t.index ['order_id'], name: 'index_status_transactions_on_order_id'
   end
-
 end
