@@ -6,12 +6,20 @@ class Order < ApplicationRecord
   before_create { self.order_date = Date.today unless order_date.present? }
 
   validate :order_date_cannot_be_in_the_past
+  validate :order_status, on: :update
 
   def order_date_cannot_be_in_the_past
    if order_date && order_date < Date.today
      errors.add(:order_date, "can't be in the past")
    end
- end
+  end
+
+   # An line_item can only be edited while in the DRAFT status
+   def order_status
+     if order && !order.draft?
+       errors.add(:order_status, "An order can only be edited while in the DRAFT status")
+     end
+   end
 
  aasm(:status) do
   state :draft, :initial => true
